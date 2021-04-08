@@ -1,2 +1,2 @@
-# java_pft
+# java
 Курсы по JAVA
