@@ -13,4 +13,8 @@ public class NavigationHelper extends BaseHelper {
 
     click(By.linkText("groups"));
   }
+
+  public void returnToHomePage() {
+    click(By.linkText("home"));
+  }
 }
