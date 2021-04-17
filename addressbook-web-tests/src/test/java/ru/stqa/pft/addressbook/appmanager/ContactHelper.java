@@ -18,11 +18,23 @@ public class ContactHelper extends BaseHelper {
     type(By.name("email"), contactData.getEmail());
   }
 
-  public void submit() {
-    click(By.xpath("(//input[@name='submit'])[2]"));
+  public void submitContactCreation() {
+    click(By.name("submit"));
   }
 
   public void initContactCreation() {
     click(By.linkText("add new"));
+  }
+
+  public void initContactModification() {
+    click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
+
+  public void submitContactDeletion() {
+    click(By.xpath("(//input[@name='update'])[3]"));
   }
 }
