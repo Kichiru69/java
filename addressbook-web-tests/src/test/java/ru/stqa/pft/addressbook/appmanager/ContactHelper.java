@@ -34,7 +34,15 @@ public class ContactHelper extends BaseHelper {
     click(By.name("update"));
   }
 
-  public void submitContactDeletion() {
-    click(By.xpath("(//input[@name='update'])[3]"));
+  public void selectContact() {
+    click(By.xpath("//td/input"));
+  }
+
+  public void alertAccept() {
+    wd.switchTo().alert().accept();
+  }
+
+  public void contactDeletion() {
+    click(By.xpath("//input[@value='Delete']"));
   }
 }
