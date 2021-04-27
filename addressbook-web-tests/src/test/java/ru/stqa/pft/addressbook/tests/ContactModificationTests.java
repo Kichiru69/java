@@ -11,7 +11,7 @@ public class ContactModificationTests extends TestBase {
     app.getNavigationHelper().returnToHomePage();
     if (! app.getContactHelper().isThereAContact()) {
       app.getContactHelper().createContact(new ContactData("Elena", "Alfutova",
-              "Moscow, street Testovaya 77, 88", "849566655588", "test@test.ru", "test1"), false);
+              "Moscow, street Testovaya 77, 88", "849566655588", "test@test.ru", "test1"), true);
     }
     app.getContactHelper().initContactModification();
     app.getContactHelper().fillContactForm(new ContactData("Elena", "Alfutova",
