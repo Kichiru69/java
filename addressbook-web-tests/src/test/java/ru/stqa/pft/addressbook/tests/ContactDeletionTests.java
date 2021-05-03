@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactDeletionTests extends TestBase{
@@ -18,7 +17,7 @@ public class ContactDeletionTests extends TestBase{
               "Moscow, street Testovaya 77, 88", "849566655588", "test@test.ru", "test1"), true);
     }
     List<ContactData> before = app.getContactHelper().getContactsList();
-    app.getContactHelper().selectContact();
+    app.getContactHelper().selectContact(before.size() - 1);
     app.getContactHelper().contactDeletion();
     app.getContactHelper().alertAccept();
     app.getNavigationHelper().returnToHomePage();
