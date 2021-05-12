@@ -23,13 +23,13 @@ public class ContactCreationTest extends TestBase {
 
   @Test
   public void testContactCreation() throws Exception {
-    app.getContactHelper().goToHomePage();
-    List<ContactData> before = app.getContactHelper().getContactsList();
-    ContactData contact = new ContactData("Elena", "Alfutova",
-            "Moscow, street Testovaya 77, 88", "849566655588", "test@test.ru", "test1");
-    app.getContactHelper().createContact(contact, true);
-    app.getContactHelper().goToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactsList();
+    app.contact().goToHomePage();
+    List<ContactData> before = app.contact().list();
+    ContactData contact = new ContactData().withFirstname("Elena").withLastname("Alfutova")
+            .withAddress("Moscow, street Testovaya 77, 88").withPhone("849566655588")
+            .withEmail("test@test.ru").withGroup("test1");
+    app.contact().create(contact, true);
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     before.add(contact);

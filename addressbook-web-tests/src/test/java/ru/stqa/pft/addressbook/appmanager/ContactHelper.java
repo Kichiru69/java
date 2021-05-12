@@ -58,10 +58,23 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void createContact(ContactData contact, boolean creation) {
+  public void create(ContactData contact, boolean creation) {
     initContactCreation();
     fillContactForm(contact, creation);
     submitContactCreation();
+    goToHomePage();
+  }
+
+  public void modify(int index, ContactData contact) {
+    fillContactForm(contact, false);
+    submitContactModification();
+    goToHomePage();
+  }
+
+  public void delete(int index) {
+    selectContact(index);
+    contactDeletion();
+    alertAccept();
     goToHomePage();
   }
 
@@ -73,18 +86,19 @@ public class ContactHelper extends BaseHelper {
      return isElementPresent(By.name("selected[]"));
   }
 
-  public List<ContactData> getContactsList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement element : elements) {
       String lastname = element.findElement(By.cssSelector("tr[name='entry'] > td:nth-child(2)")).getText();
       String firstname = element.findElement(By.cssSelector("tr[name='entry'] > td:nth-child(3)")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-      ContactData contact = new ContactData(id, firstname, lastname,
-              null, null, null, null);
-      contacts.add(contact);
+      contacts.add(new ContactData().withId(id).withFirstname("Elena").withLastname("Alfutova")
+              .withAddress("Moscow, street Testovaya 77, 88").withPhone("849566655588")
+              .withEmail("test@test.ru").withGroup("test1"));
     }
     return contacts;
 
   }
+
 }
