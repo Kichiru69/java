@@ -73,12 +73,14 @@ public class ContactDataGenerator {
     List<ContactData> contacts = new ArrayList<>();
     for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withFirstname(String.format(generateString()))
-              .withLastname(generateString()).withGroup("test1").withAddress("Testovaya " + 1 + i).withHomePhone(generateNumber()));
+              .withLastname(generateString()).withGroup("test1").withAddress("Testovaya " + 1 + i)
+              .withHomePhone(generateNumber()).withPhoto(new File("src/test/resources/stru.png"))
+      .withEmail(generateEmail()));
     }
     return contacts;
   }
 
-  @Test
+
   public String generateString() {
     int leftLimit = 97;
     int rightLimit = 122;
@@ -91,7 +93,7 @@ public class ContactDataGenerator {
     return generatedString;
   }
 
-  @Test
+
   public String generateNumber() {
     Random rand = new Random();
     int num1 = (rand.nextInt(7) + 1) * 100 + (rand.nextInt(8) * 10) + rand.nextInt(8);
@@ -104,6 +106,19 @@ public class ContactDataGenerator {
     String phoneNumber = "8(" + df3.format(num1) + ")-" + df3.format(num2) + "-" + df4.format(num3);
 
     return phoneNumber;
+  }
+
+  public String generateEmail() {
+    int leftLimit = 97;
+    int rightLimit = 122;
+    int targetStringLength = 10;
+    Random random = new Random();
+    String generatedString = random.ints(leftLimit, rightLimit + 1)
+            .limit(targetStringLength)
+            .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+            .toString();
+    String email = generatedString + "@mail.ru";
+    return email;
   }
 }
 

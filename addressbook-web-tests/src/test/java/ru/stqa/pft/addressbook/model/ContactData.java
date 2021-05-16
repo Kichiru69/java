@@ -26,6 +26,7 @@ public class ContactData {
   private String mobilePhone;
   @XStreamOmitField
   private String workPhone;
+  @Expose
   private String email;
   @XStreamOmitField
   private String email2;
@@ -35,7 +36,7 @@ public class ContactData {
   private String allPhones;
   @XStreamOmitField
   private String allEmails;
-  @XStreamOmitField
+  @Expose
   private File photo;
 
   public File getPhoto() {
@@ -46,7 +47,6 @@ public class ContactData {
     this.photo = photo;
     return this;
   }
-
 
 
   public ContactData withAddress(String address) {
