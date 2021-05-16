@@ -6,7 +6,6 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
-import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.io.File;
@@ -72,7 +71,7 @@ public class ContactDataGenerator {
   private List<ContactData> generateContacts(int count) {
     List<ContactData> contacts = new ArrayList<>();
     for (int i = 0; i < count; i++) {
-      contacts.add(new ContactData().withFirstname(String.format(generateString()))
+      contacts.add(new ContactData().withFirstname(generateString())
               .withLastname(generateString()).withGroup("test1").withAddress("Testovaya " + 1 + i)
               .withHomePhone(generateNumber()).withPhoto(new File("src/test/resources/stru.png"))
       .withEmail(generateEmail()));
@@ -90,7 +89,8 @@ public class ContactDataGenerator {
             .limit(targetStringLength)
             .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
             .toString();
-    return generatedString;
+    String stringCapitalized = generatedString.substring(0, 1).toUpperCase();
+    return stringCapitalized + generatedString.substring(1);
   }
 
 
@@ -99,12 +99,9 @@ public class ContactDataGenerator {
     int num1 = (rand.nextInt(7) + 1) * 100 + (rand.nextInt(8) * 10) + rand.nextInt(8);
     int num2 = rand.nextInt(743);
     int num3 = rand.nextInt(10000);
-
     DecimalFormat df3 = new DecimalFormat("000");
     DecimalFormat df4 = new DecimalFormat("0000");
-
     String phoneNumber = "8(" + df3.format(num1) + ")-" + df3.format(num2) + "-" + df4.format(num3);
-
     return phoneNumber;
   }
 

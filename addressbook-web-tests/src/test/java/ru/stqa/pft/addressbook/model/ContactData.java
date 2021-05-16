@@ -48,7 +48,6 @@ public class ContactData {
     return this;
   }
 
-
   public ContactData withAddress(String address) {
     this.address = address;
     return this;
@@ -115,8 +114,6 @@ public class ContactData {
     this.group = group;
     return this;
   }
-
-  //private String group;
 
   public String getFirstname() {
     return firstname;
@@ -187,6 +184,7 @@ public class ContactData {
             ", email3='" + email3 + '\'' +
             ", allPhones='" + allPhones + '\'' +
             ", allEmails='" + allEmails + '\'' +
+            ", photo=" + photo +
             '}';
   }
 

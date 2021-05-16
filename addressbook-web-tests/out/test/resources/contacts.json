@@ -1,26 +1,17 @@
 [
   {
-    "firstname": "svbupqqiif",
-    "lastname": "ubqkpkdxjz",
-    "group": "test1",
-    "address": "Testovaya 10",
-    "homePhone": "8(650)-245-1963",
-    "photo": {}
+    "name": "test 0",
+    "header": "header 0",
+    "footer": "footer 0"
   },
   {
-    "firstname": "luklrzomat",
-    "lastname": "krdicxrdid",
-    "group": "test1",
-    "address": "Testovaya 11",
-    "homePhone": "8(574)-052-7735",
-    "photo": {}
+    "name": "test 1",
+    "header": "header 1",
+    "footer": "footer 1"
   },
   {
-    "firstname": "jgcosvkfen",
-    "lastname": "udpunsqdyw",
-    "group": "test1",
-    "address": "Testovaya 12",
-    "homePhone": "8(201)-240-8185",
-    "photo": {}
+    "name": "test 2",
+    "header": "header 2",
+    "footer": "footer 2"
   }
 ]
