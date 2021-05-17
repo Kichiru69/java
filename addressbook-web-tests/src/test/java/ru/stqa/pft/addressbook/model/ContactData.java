@@ -36,7 +36,7 @@ public class ContactData {
   private String allPhones;
   @XStreamOmitField
   private String allEmails;
-  @Expose
+  @XStreamOmitField
   private File photo;
 
   public File getPhoto() {
@@ -178,7 +178,6 @@ public class ContactData {
             ", address='" + address + '\'' +
             ", homePhone='" + homePhone + '\'' +
             ", email='" + email + '\'' +
-            ", photo=" + photo +
             '}';
   }
 
