@@ -11,6 +11,7 @@ dependencies {
     implementation 'com.beust:jcommander:1.81'
     implementation 'com.thoughtworks.xstream:xstream:1.4.17'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'ch.qos.logback:logback-classic:1.1.5'
 }
 task testGroup (type : Test) {
     useTestNG {
