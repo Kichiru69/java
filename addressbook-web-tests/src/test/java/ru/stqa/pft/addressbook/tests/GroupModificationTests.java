@@ -17,14 +17,13 @@ public class GroupModificationTests extends TestBase {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test1"));
     }
-
   }
 
   @Test
   public void testGroupModification() {
     Groups before = app.db().groups();
     GroupData modifiedGroup = before.iterator().next();
-    GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test5")
+    GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test1")
             .withHeader("test2").withFooter("test3");
     app.goTo().groupPage();
     app.group().modify(group);
@@ -33,6 +32,5 @@ public class GroupModificationTests extends TestBase {
     assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
 
   }
-
 
 }

@@ -56,7 +56,7 @@ public class ContactCreationTest extends TestBase {
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().groupPage();
-    if (app.group().all().size() == 0) {
+    if (app.db().groups().size() == 0) {
       app.group().create(new GroupData().withName("test1"));
     }
   }
@@ -64,10 +64,9 @@ public class ContactCreationTest extends TestBase {
   @Test(dataProvider = "validContactsFromXml")
   public void testContactCreation(ContactData contact) throws Exception {
     app.contact().goToHomePage();
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     app.contact().create(contact, true);
-    Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size() + 1));
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.withAdded
             (contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
