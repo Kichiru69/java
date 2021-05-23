@@ -15,7 +15,9 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 .idea/workspace.xml
 *.class
-*.json
-*.xml
 *.png
 *.log
+addressbook-web-tests/out/test/resources/contacts.json
+addressbook-web-tests/out/test/resources/contacts.xml
+addressbook-web-tests/out/test/resources/groups.json
+addressbook-web-tests/out/test/resources/groups.xml
