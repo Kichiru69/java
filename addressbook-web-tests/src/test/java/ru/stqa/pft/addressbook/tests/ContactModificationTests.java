@@ -7,7 +7,6 @@ import ru.stqa.pft.addressbook.model.Contacts;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
@@ -17,7 +16,8 @@ public class ContactModificationTests extends TestBase {
       app.goTo().HomePage();
       app.contact().create(new ContactData().withFirstname("Elena").withLastname("Alfutova")
               .withAddress("Moscow, street Testovaya 77, 88").withHomePhone("849566655588")
-              .withEmail("test@test.ru").withGroup("test1"), true);
+              .withEmail("test@test.ru")
+              , true);
     }
   }
 
