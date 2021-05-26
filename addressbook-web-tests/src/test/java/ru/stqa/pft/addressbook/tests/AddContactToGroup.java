@@ -1,7 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -23,6 +21,11 @@ public class AddContactToGroup extends TestBase {
                       .withEmail("test@test.ru")
               , true);
     }
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("test1"));
+  }
+
   }
   @Test
   public void testAddContactToGroup() {
@@ -30,13 +33,15 @@ public class AddContactToGroup extends TestBase {
     Groups groups = app.db().groups();
     ContactData contact = before.iterator().next();
     GroupData group = groups.iterator().next();
+    app.contact().goToHomePage();
     app.contact().selectContactById(contact.getId());
-    //app.contact().selectGroupById(group.getId());
     app.contact().initAddToGroup();
-    Contacts after = app.db().contacts();
     System.out.println(contact.getGroups());
-    //assertThat(group ,equalTo(contact.getGroups()));
+    assertThat(group ,equalTo(contact.getGroups()));
+    //assertThat(group.getId(), equalTo(contact.getGroups().stream().mapToInt((g) -> g.getId()).max().getAsInt()));
+
   }
+
 
 
 }
