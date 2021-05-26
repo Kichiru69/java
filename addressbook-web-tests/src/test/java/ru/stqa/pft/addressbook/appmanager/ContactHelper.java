@@ -100,8 +100,14 @@ public class ContactHelper extends BaseHelper {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void selectGroupById(int id) {
-    wd.findElement(By.cssSelector("option[value='" + id + "']")).click();
+  public void selectGroupFromDropDownByIdToRemove(int id) {
+      wd.findElement(By.cssSelector(" form#right select option[value='" + id +"']")).click();
+    }
+
+
+
+  public void removeContactFromGroup() {
+    wd.findElement(By.name("remove")).click();
   }
 
   public void create(ContactData contact, boolean creation) {
@@ -148,6 +154,13 @@ public class ContactHelper extends BaseHelper {
               .withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address));
     }
     return contacts;
+  }
+
+  public void addContactToGroupById(String groupId) {
+    Select groupsDropDown =
+            new Select(wd.findElement(By.name("to_group")));
+    groupsDropDown.selectByValue(groupId);
+    initAddToGroup();
   }
 
 }
