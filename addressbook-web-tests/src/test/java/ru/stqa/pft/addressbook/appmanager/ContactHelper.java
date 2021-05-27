@@ -103,10 +103,12 @@ public class ContactHelper extends BaseHelper {
   public void selectGroupFromDropDownByIdToRemove(int id) {
       wd.findElement(By.cssSelector(" form#right select option[value='" + id +"']")).click();
     }
+  public void selectGroupFromDropDownByIdToAdd(int id) {
+    wd.findElement(By.cssSelector("select[name='to_group'] > option[value='" + id +"']")).click();
+  }
 
 
-
-  public void removeContactFromGroup() {
+  public void initRemoveContactFromGroup() {
     wd.findElement(By.name("remove")).click();
   }
 
@@ -156,10 +158,10 @@ public class ContactHelper extends BaseHelper {
     return contacts;
   }
 
-  public void addContactToGroupById(String groupId) {
+  public void addContactToGroupById(int groupId) {
     Select groupsDropDown =
             new Select(wd.findElement(By.name("to_group")));
-    groupsDropDown.selectByValue(groupId);
+    groupsDropDown.selectByValue(String.valueOf(groupId));
     initAddToGroup();
   }
 
