@@ -42,8 +42,8 @@ public class RemoveContactFromGroup extends TestBase {
   }
 
 
-  @Test
-  public void testContactDeletionFromGroup() {
+  @Test(enabled = true)
+  public void testContactDeletionFromGroupOld() {
     Contacts before = app.db().contacts();
     Groups groups = app.db().groups();
     ContactData contact = before.iterator().next();
@@ -54,6 +54,21 @@ public class RemoveContactFromGroup extends TestBase {
     app.contact().selectContactById(contact.getId());
     app.contact().initRemoveContactFromGroup();
     assertThat(group.getId(), equalTo(contact.getGroups().stream().mapToInt((g) -> g.getId()).max().getAsInt()));
+  }
+
+  @Test
+  public void testContactDeletionFromGroup() {
+    Contacts allContactsBefore = app.db().contacts();
+    //ContactData contact = allContactsBefore.iterator().next();
+    Groups allGroupsBefore = app.db().groups();
+    for (GroupData group : allGroupsBefore) {
+      Contacts contactInGroup = group.getContacts();
+      if (contactInGroup.size() > 0) {
+        int groupId = group.getId();
+
+      }
+    }
+
   }
 
 }

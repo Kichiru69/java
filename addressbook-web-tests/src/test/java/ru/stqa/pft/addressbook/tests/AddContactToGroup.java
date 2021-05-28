@@ -29,30 +29,47 @@ public class AddContactToGroup extends TestBase {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test1"));
   }
-    /*Contacts contacts = app.db().contacts();
-    ContactData contact = contacts.iterator().next();
-    Groups groups = app.db().groups();
-    GroupData group = groups.iterator().next();
-
-    if (contact.getGroups().size() > 0) {
-      app.goTo().groupPage();
-      app.group().create(new GroupData().withName("test1"));
-    }*/
-
   }
+
+
   @Test
-  public void testAddContactToGroup() {
-    Contacts before = app.db().contacts();
-    ContactData contact = before.iterator().next();
-    Groups groups = app.db().groups();
-    GroupData group = groups.iterator().next();
-    app.contact().goToHomePage();
-    app.contact().selectContactById(contact.getId());
-    app.contact().selectGroupFromDropDownByIdToAdd(group.getId());
-    app.contact().initAddToGroup();
-    System.out.println(contact.getGroups());
-    //assertThat(group ,equalTo(contact.getGroups()));
-    assertThat(group.getId(), equalTo(contact.getGroups().stream().mapToInt((g) -> g.getId()).max().getAsInt()));
+  public void testContactAddToGroup() {
+    Groups allGroups = app.db().groups();
+    Contacts contactsBefore = app.db().contacts();
+    boolean createGroup = false;
+    for (ContactData contact : contactsBefore) {
+      Groups contactInGroups = contact.getGroups();
+      allGroups.removeAll(contactInGroups);
+      if (allGroups.size() > 0) {
+        GroupData groupToAdd = allGroups.iterator().next();
+        int contactId = contact.getId();
+        app.goTo().HomePage();
+        app.contact().addToGroup(contact, groupToAdd);
+        ContactData addedContactAfter = app.db().contactWithId(contactId);
+        assertThat(addedContactAfter.getGroups().size(), equalTo(contact.getGroups().size() + 1));
+        assertThat(addedContactAfter.getGroups(), equalTo(contactInGroups.withAdded(groupToAdd)));
+        break;
+      } else {
+        createGroup = true;
+      }
+    }
+
+    if (createGroup) {
+      GroupData newTestGroup = new GroupData().withName("test 10");
+      app.goTo().groupPage();
+      app.group().create(newTestGroup);
+      Groups newAllGroups = app.db().groups();
+      int id = newAllGroups.stream().mapToInt((g) -> g.getId()).max().getAsInt();
+      GroupData groupToAdd = app.db().groupWithId(id);
+      ContactData addedContactBefore = contactsBefore.iterator().next();
+      int contactId = addedContactBefore.getId();
+      Groups contactInGroups = addedContactBefore.getGroups();
+      app.goTo().HomePage();
+      app.contact().addToGroup(addedContactBefore, groupToAdd);
+      ContactData addedContactAfter = app.db().contactWithId(contactId);
+      assertThat(addedContactAfter.getGroups().size(), equalTo(addedContactBefore.getGroups().size() + 1));
+      assertThat(addedContactAfter.getGroups(), equalTo(contactInGroups.withAdded(groupToAdd)));
+    }
   }
 
 
