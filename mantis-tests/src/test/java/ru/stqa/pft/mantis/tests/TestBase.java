@@ -15,12 +15,12 @@ public class TestBase {
   @BeforeSuite(alwaysRun = true)
   public void setUp() throws Exception {
     app.init();
-    app.ftp().upload(new File("src/test/resources/comfig_ing.php"), "comfig_ing.php", "comfig_ing.php.bak");
+    app.ftp().upload(new File("src/test/resources/config_inc.php"), "config_inc.php", "config_inc.php.bak");
   }
 
   @AfterSuite(alwaysRun = true)
   public void tearDown() throws Exception {
-    app.ftp().restore("comfig_ing.php.bak", "comfig_ing.php");
+    app.ftp().restore("config_inc.php.bak", "confic_ing.php");
     app.stop();
   }
 

@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class RegistrationHelper extends BaseHelper {
-  private WebDriver wd;
+  //private WebDriver wd;
 
   public RegistrationHelper(ApplicationManager app) {
     super(app);
@@ -14,7 +14,7 @@ public class RegistrationHelper extends BaseHelper {
     wd.get(app.getProperty("web.baseURL") + "signup_page.php");
     type(By.name("username"), username);
     type(By.name("email"), email);
-    click(By.cssSelector("input[value='Singup']"));
+    click(By.cssSelector("input[value='Зарегистрироваться']"));
   }
 
   public void finish(String confirmationLink, String password) {

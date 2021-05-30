@@ -21,6 +21,7 @@ public class ApplicationManager {
   private FTPHelper ftp;
   private MailHelper MailHelper;
   private JamesHelper JamesHelper;
+  private ResetPasswordHelper ResetPasswordHelper;
 
   public ApplicationManager(String browser)  {
     this.browser = browser;
@@ -70,7 +71,7 @@ public class ApplicationManager {
         wd = new InternetExplorerDriver();
       }
       wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-      wd.get(properties.getProperty("web.baseUrl"));
+      wd.get(properties.getProperty("web.baseURL"));
     }
     return wd;
   }
@@ -87,5 +88,9 @@ public class ApplicationManager {
       JamesHelper = new JamesHelper(this);
     }
     return JamesHelper;
+  }
+  public ResetPasswordHelper resetPassword() {
+    ResetPasswordHelper = new ResetPasswordHelper(this);
+    return ResetPasswordHelper;
   }
 }
