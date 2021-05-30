@@ -172,4 +172,11 @@ public class ContactHelper extends BaseHelper {
     selectGroupFromDropDownByIdToAdd(groupToAdd.getId());
     initAddToGroup();
   }
+  public void removeContact(int contactId, int groupId) {
+    goToHomePage();
+    selectContactById(contactId);
+    selectGroupFromDropDownByIdToRemove(groupId);
+    selectContactById(contactId);
+    initRemoveContactFromGroup();
+  }
 }

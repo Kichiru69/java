@@ -25,51 +25,45 @@ public class RemoveContactFromGroup extends TestBase {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test1"));
     }
-
-    Contacts contacts = app.db().contacts();
-    Groups groups = app.db().groups();
-    ContactData contact = contacts.iterator().next();
-    GroupData group = groups.iterator().next();
-
-    int contactId = contact.getId();
-    Groups groupInContact = contact.getGroups();
-    int groupId = group.getId();
-    if (!groupInContact.contains(group)) {
-      app.contact().goToHomePage();
-      app.contact().selectContactById(contactId);
-      app.contact().addContactToGroupById(groupId);
-    }
-  }
-
-
-  @Test(enabled = true)
-  public void testContactDeletionFromGroupOld() {
-    Contacts before = app.db().contacts();
-    Groups groups = app.db().groups();
-    ContactData contact = before.iterator().next();
-    GroupData group = groups.iterator().next();
-    app.contact().goToHomePage();
-    app.contact().selectContactById(contact.getId());
-    app.contact().selectGroupFromDropDownByIdToRemove(group.getId());
-    app.contact().selectContactById(contact.getId());
-    app.contact().initRemoveContactFromGroup();
-    assertThat(group.getId(), equalTo(contact.getGroups().stream().mapToInt((g) -> g.getId()).max().getAsInt()));
   }
 
   @Test
   public void testContactDeletionFromGroup() {
     Contacts allContactsBefore = app.db().contacts();
-    //ContactData contact = allContactsBefore.iterator().next();
     Groups allGroupsBefore = app.db().groups();
+    boolean addGroupToContact = false;
     for (GroupData group : allGroupsBefore) {
       Contacts contactInGroup = group.getContacts();
       if (contactInGroup.size() > 0) {
         int groupId = group.getId();
-
+        ContactData contactDeleteFromGroup = contactInGroup.iterator().next();
+        int contactId = contactDeleteFromGroup.getId();
+        app.contact().removeContact(contactId, groupId);
+        GroupData removedGroup = app.db().groupWithId(groupId);
+        assertThat(removedGroup.getContacts().size(), equalTo(contactInGroup.size() - 1));
+        assertThat(removedGroup.getContacts(), equalTo(contactInGroup.without(contactDeleteFromGroup)));
+        break;
+      } else {
+        addGroupToContact = true;
       }
     }
+    if (addGroupToContact) {
+      ContactData contactBeforeInGroup = allContactsBefore.iterator().next();
+      GroupData groupBeforeWithContact = allGroupsBefore.iterator().next();
+      int contactId = contactBeforeInGroup.getId();
+      int groupId = groupBeforeWithContact.getId();
+      Groups groupsInContact = contactBeforeInGroup.getGroups();
+      app.contact().addToGroup(contactBeforeInGroup, groupBeforeWithContact);
+      ContactData contactAfterInGroup = app.db().contactWithId(contactId);
+      GroupData groupAfterWithContact = app.db().groupWithId(groupId);
+      assertThat(contactAfterInGroup.getGroups(), equalTo(groupsInContact.withAdded(groupBeforeWithContact)));
+      Contacts allContactsInGroup = groupAfterWithContact.getContacts();
+      app.contact().removeContact(contactId, groupId);
+      GroupData groupAfterDeleteContact = app.db().groupWithId(groupId);
+      assertThat(groupAfterDeleteContact.getContacts().size(), equalTo(allContactsInGroup.size() - 1));
+      assertThat(groupAfterDeleteContact.getContacts(), equalTo(allContactsInGroup.without(contactAfterInGroup)));
 
+    }
   }
 
 }
-
