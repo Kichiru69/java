@@ -22,6 +22,7 @@ public class ApplicationManager {
   private MailHelper MailHelper;
   private JamesHelper JamesHelper;
   private ResetPasswordHelper ResetPasswordHelper;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser)  {
     this.browser = browser;
@@ -90,7 +91,15 @@ public class ApplicationManager {
     return JamesHelper;
   }
   public ResetPasswordHelper resetPassword() {
-    ResetPasswordHelper = new ResetPasswordHelper(this);
+    if (ResetPasswordHelper == null) {
+      ResetPasswordHelper = new ResetPasswordHelper(this);
+    }
     return ResetPasswordHelper;
+  }
+  public DbHelper db() {
+    if (dbHelper == null) {
+      dbHelper = new DbHelper();
+    }
+    return dbHelper;
   }
 }
