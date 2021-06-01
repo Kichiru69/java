@@ -5,8 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.stqa.pft.mantis.model.ContactData;
-import ru.stqa.pft.mantis.model.Contacts;
+import ru.stqa.pft.mantis.model.UserData;
+import ru.stqa.pft.mantis.model.Users;
 
 
 import java.util.List;
@@ -22,19 +22,19 @@ public class DbHelper {
       sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
   }
 
-  public Contacts contacts() {
+  public Users users() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<ContactData> result = session.createQuery( "from ContactData" ).list();
+    List<UserData> result = session.createQuery( "from UserData" ).list();
     session.getTransaction().commit();
     session.close();
-    return new Contacts(result);
+    return new Users(result);
   }
 
-  public ContactData contactWithId(int id) {
+  public UserData contactWithId(int id) {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    ContactData contact = (ContactData) session.createQuery( "from ContactData where id =" + id).getSingleResult();
+    UserData contact = (UserData) session.createQuery( "from ContactData where id =" + id).getSingleResult();
     session.getTransaction().commit();
     session.close();
     return contact;
