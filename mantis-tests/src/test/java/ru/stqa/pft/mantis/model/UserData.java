@@ -46,7 +46,7 @@ public class UserData {
 
   @Override
   public String toString() {
-    return "ContactData{" +
+    return "UserData{" +
             "id=" + id +
             ", firstname='" + username + '\'' +
             ", email='" + email + '\'' +

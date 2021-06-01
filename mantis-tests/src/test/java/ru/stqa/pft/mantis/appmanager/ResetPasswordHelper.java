@@ -8,11 +8,11 @@ import java.util.concurrent.TimeUnit;
 public class ResetPasswordHelper extends BaseHelper {
 
   public void resetPasswordAsAdmin(UserData userForChange) throws InterruptedException {
-    app.resetPassword().login("administrator", "root");
-    app.resetPassword().initChooseMenu(6);
-    app.resetPassword().initChooseMenuAbove();
-    app.resetPassword().initChooseUserById(userForChange.getId());
-    app.resetPassword().initResetPassword();
+    login("administrator", "root");
+    initChooseMenu(6);
+    initChooseMenuAbove();
+    initChooseUserById(userForChange.getId());
+    initResetPassword();
   }
 
   public ResetPasswordHelper(ApplicationManager app) {
@@ -22,7 +22,7 @@ public class ResetPasswordHelper extends BaseHelper {
   public void initChooseMenu(int number) throws InterruptedException {
     wd.findElement(By.id("menu-toggler")).click();
     TimeUnit.SECONDS.sleep(1);
-    wd.findElement(By.cssSelector("#sidebar > ul > li:nth-child(" + number + ")")).click();
+    wd.findElement(By.cssSelector("#sidebar li:nth-child(" + number + ")")).click();
   }
 
   public void initChooseMenuAbove() {
@@ -49,6 +49,6 @@ public class ResetPasswordHelper extends BaseHelper {
     wd.get(confirmationLink);
     type(By.name("password"), password);
     type(By.name("password_confirm"), password);
-    click(By.cssSelector("button[type = 'submit']"));
+    click(By.cssSelector("button[type='submit']"));
   }
 }
