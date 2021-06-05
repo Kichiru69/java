@@ -1,30 +1,31 @@
 apply plugin: 'java'
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    implementation 'org.testng:testng:6.9.10'
+    implementation 'org.testng:testng:7.4.0'
 
 }
 
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+buildscript{
+    repositories{
+        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath "gradle.plugin.com.github.bjornvester:wsdl2java-gradle-plugin:1.1"
+        classpath 'no.nils:wsdl2java:0.12'
     }
 }
 
-apply plugin: "com.github.bjornvester.wsdl2java"
-
+apply plugin: 'no.nils.wsdl2java'
 
 wsdl2java {
-    wsdlDir.set(layout.projectDirectory.dir("src/main/java"))
-    generatedSourceDir.set(layout.projectDirectory.dir("src/main/resources"))
-    includes.set(
-            listOf(                    "src/main/resources/ipservice.wsdl",
-            )
-    )
+    wsdlDir = file("src/main/resources") // define to support incremental build
+    wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
+                          ["$projectDir/src/main/resources/ipservice.wsdl"]
+    ]
+    cxfVersion = "3.3.1"
 
 }
