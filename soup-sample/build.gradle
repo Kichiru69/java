@@ -5,21 +5,26 @@ dependencies {
 
 }
 
-buildscript{
-    repositories{
-        jcenter()
-        mavenCentral()
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath 'no.nils:wsdl2java:0.12'
+        classpath "gradle.plugin.com.github.bjornvester:wsdl2java-gradle-plugin:1.1"
     }
 }
 
-apply plugin: 'no.nils.wsdl2java'
+apply plugin: "com.github.bjornvester.wsdl2java"
+
 
 wsdl2java {
-    wsdlDir = file("src/main/java") // define to support incremental build
-    wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
-                          ['src/main/resources/ipservice.wsdl'],
-    ]
+    wsdlDir.set(layout.projectDirectory.dir("src/main/java"))
+    generatedSourceDir.set(layout.projectDirectory.dir("src/main/resources"))
+    includes.set(
+            listOf(                    "src/main/resources/ipservice.wsdl",
+            )
+    )
+
 }
