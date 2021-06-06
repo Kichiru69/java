@@ -3,8 +3,6 @@ package ru.stqa.pft.rest;
 import org.testng.SkipException;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
 
 public class TestBase {
 

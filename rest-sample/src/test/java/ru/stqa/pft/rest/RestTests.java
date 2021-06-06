@@ -11,7 +11,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 public class RestTests extends TestBase {
@@ -31,7 +30,7 @@ public class RestTests extends TestBase {
   private Set<Issue> getIssues() throws IOException {
     String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json"))
             .returnContent().asString();
-    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement parsed = JsonParser.parseString(json);
     JsonElement issues = parsed.getAsJsonObject().get("issues");
     return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
 
@@ -46,16 +45,18 @@ public class RestTests extends TestBase {
             .bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),
                     new BasicNameValuePair("description" , newIssue.getDescription())))
             .returnContent().asString();
-    JsonElement parsed = new JsonParser().parse(json);
+    JsonElement parsed = JsonParser.parseString(json);
     return parsed.getAsJsonObject().get("issue_id").getAsInt();
   }
 
-  public static String getIssueStatus(int issueId) throws IOException { //"state_name"
+  public static String getIssueStatus(int issueId) throws IOException {
     String json = getExecutor().execute(Request.Get(String.format("https://bugify.stqa.ru/api/issues/%s.json", issueId)))
             .returnContent().asString();
-    JsonElement parsed = new JsonParser().parse(json);
-    JsonElement issues = parsed.getAsJsonObject().get("issues");
-    return issues.getAsJsonObject().get("state_name").getAsString();
+    JsonElement parsed = JsonParser.parseString(json);
+    JsonElement issuesArray = parsed.getAsJsonObject().get("issues");
+    JsonElement issue = issuesArray.getAsJsonArray().get(0);
+    return issue.getAsJsonObject().get("state_name").getAsString();
+
   }
 
 
