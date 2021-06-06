@@ -38,7 +38,4 @@ public class TestBase {
     app.ftp().restore("config_inc.php.bak", "confic_ing.php");
     app.stop();
   }
-
-  //boolean isIssueOpen(int issueId)
-
 }
