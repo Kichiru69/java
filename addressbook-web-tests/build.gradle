@@ -25,6 +25,9 @@ task testGroup (type : Test) {
     if (project.hasProperty("target")) {
         systemProperty 'target', "${target}"
     }
+    if (project.hasProperty("platform")) {
+        systemProperty 'platform', "${platform}"
+    }
 }
 
 task testContact (type : Test) {
@@ -36,5 +39,8 @@ task testContact (type : Test) {
     }
     if (project.hasProperty("target")) {
         systemProperty 'target', "${target}"
+    }
+    if (project.hasProperty("platform")) {
+        systemProperty 'platform', "${platform}"
     }
 }
