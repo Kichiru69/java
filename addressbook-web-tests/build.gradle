@@ -1,3 +1,19 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.5"
+    }
+}
+
+apply plugin: 'io.qameta.allure'
+
+allure {
+    autoconfigure = true
+    version = '2.4.1'
+}
+
 apply plugin: 'java'
 
 repositories {
