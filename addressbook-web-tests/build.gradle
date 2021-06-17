@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.JavaExec
+
 buildscript {
     repositories {
         jcenter()
@@ -30,6 +32,9 @@ dependencies {
     implementation 'ch.qos.logback:logback-core:1.2.3'
     implementation 'mysql:mysql-connector-java:8.0.19'
     implementation 'org.hibernate:hibernate-core:5.4.31.Final'
+    implementation 'org.robotframework:robotframework:4.0.3'
+    implementation 'info.cukes:cucumber-java:1.2.6'
+    implementation 'info.cukes:cucumber-testng:1.2.6'
 }
 task testGroup (type : Test) {
     useTestNG {
@@ -59,4 +64,11 @@ task testContact (type : Test) {
     if (project.hasProperty("platform")) {
         systemProperty 'platform', "${platform}"
     }
+}
+
+task rf(type: JavaExec) {
+    main = 'org.robotframework.RobotFramework'
+    classpath = sourceSets.test.runtimeClasspath
+    args '--outputdir' , 'build/rf-report'
+    args 'src/test/resources/rf'
 }
