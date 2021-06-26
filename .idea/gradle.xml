@@ -5,7 +5,7 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
-        <option name="testRunner" value="GRADLE" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/Sandbox" />
         <option name="modules">
@@ -16,7 +16,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
-        <option name="testRunner" value="GRADLE" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/addressbook-web-tests" />
         <option name="modules">
@@ -60,7 +60,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="delegatedBuild" value="true" />
-        <option name="testRunner" value="GRADLE" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/soup-sample" />
         <option name="modules">
